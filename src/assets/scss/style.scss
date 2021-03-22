@@ -1,0 +1,91 @@
+@import 'mixins.scss';
+
+body {
+    background-color: #efefef;
+    min-width: 320px;
+}
+
+.wrapper {
+    width: 100%;
+    
+    max-width: 860px;
+    margin: 2rem auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    
+}
+
+.LoaderWrapper {
+    margin-bottom: 1rem; 
+    position: relative;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.FileLoader {
+    padding: 2px 4px;
+    display: flex;
+    position: relative;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 100%;
+    margin-bottom: .25rem;
+
+    &__input {
+        padding: 0 .5rem;
+        flex: 1;
+    }
+    &__divider {
+        position: relative;
+        display: block;
+        height: 28px  !important;
+        width: 1px !important;
+        margin: 4rem;
+    }
+    &__button {
+        padding: 10px;
+    }
+}
+
+.example {
+    font-size: .8rem;
+    color: #666;
+    padding-left: .7rem;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    &__item {
+        padding: 0;
+        margin: 0; 
+        max-width: 100%;
+        overflow: hidden;       
+        height: 25vw;
+        flex-grow: 1;
+        &:last-child {
+            flex-grow: 1;
+        }
+
+    }
+    &__thumb {
+
+        max-height: 100%;
+        min-width: 100%;
+        object-fit: cover;
+        
+
+        vertical-align: bottom;
+    }
+}
+
+@include tablet-up {
+    .gallery {
+        &__item {
+            height: 8rem;
+        }
+    }
+}
