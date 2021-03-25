@@ -43,7 +43,7 @@ function App() {
     const _picExt = ["jpg", "jpeg", "png", "gif"]; //Допустимые расширения изображений    
     let _ext = getFileExtFromUrl(_url);
 
-    if (_picExt.indexOf(_ext) != -1) { //Если расширение файла входит в массив допустимых расширений изображений 
+    if (_picExt.indexOf(_ext) !== -1) { //Если расширение файла входит в массив допустимых расширений изображений 
       addPicture(null, _url);   
     }
     else {
