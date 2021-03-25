@@ -12,7 +12,7 @@ const FileLoader = (props) => {// Компонент поля загрузки. 
   function fileLoad() {// Исполняем при клике на кнопку загрузки
       let fileUrl = document.getElementById('fileUrl').value;
 
-      //testUrl = "https://don16obqbay2c.cloudfront.net/frontend-test-task/gallery-images.json";
+      //testUrl = "https://raw.githubusercontent.com/yhunter-ru/ecwid-gallery/master/src/gallery-images.json";
       //testUrl = "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/493550746.jpg";
         
       props.loaderCallBack(fileUrl); //Передаем url через callback
@@ -32,7 +32,7 @@ const FileLoader = (props) => {// Компонент поля загрузки. 
         </IconButton>
         </Paper>
         <div className="example">
-            Например, https://don16obqbay2c.cloudfront.net/frontend-test-task/gallery-images.json
+            Например, https://raw.githubusercontent.com/yhunter-ru/ecwid-gallery/master/src/gallery-images.json
         </div>
     </div>
   );
