@@ -1,6 +1,6 @@
-import { useFetching } from "react-concurrent";
+import Dropzone from 'react-dropzone';
 
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 
 import './assets/scss/style.scss';
 
@@ -8,9 +8,9 @@ import FileLoader from './components/FileLoader';
 import Gallery from './components/Gallery';
 
 function App() {
-  //Загрузка json хуками
+  
+  //Загрузка json 
   const [data,setData]=useState([]);
-
   const getData=(_url)=>{//Загрузка json
     fetch(_url,
       {
@@ -32,141 +32,89 @@ function App() {
             GalleryArray: _state
           }
         );  
-        setData(myJson)
+        setData(myJson);
       });
-  }
-  //useEffect(()=>{
-  //  getData()
-  //},[])
+  };  
   
-  //Остальное 
   function getFileExtFromUrl(_url) { //Получаем расширение файла
     return decodeURI(_url.split('.').pop());
   }
 
-  const urlCallback = (_url) => {//Callback для передачи в компонент загрузчика
+  const urlCallback = (_url) => {//Callback для передачи из компонента строки загрузчика
     const _picExt = ["jpg", "jpeg", "png", "gif"]; //Допустимые расширения изображений    
     let _ext = getFileExtFromUrl(_url);
-    let _state = GalleryState.GalleryArray;
 
     if (_picExt.indexOf(_ext) != -1) { //Если расширение файла входит в массив допустимых расширений изображений 
-      _state.push({"url": _url}); //Добавляем картинку 
-      SetGalleryState( //Вносим изменения в состояние галереи
-        {
-          GalleryArray: _state
-        }
-      );      
+      addPicture(null, _url);   
     }
     else {
       if (_ext === "json") {//Если расширение json - грузим его
-        console.log('json');
         getData(_url);
-        //const [data, loading] = useFetch(
-        //  _url
-        //);
       }
     }
 
-    //console.log(GalleryState);
-  } 
+  };
 
-  const [GalleryState, SetGalleryState] = useState({ //Стейт формы добавления заведения
-    GalleryArray: [
+  const deleteImgCallback = (_img) => { //Удаление картинки из галереи по индексу _img
+    GalleryState.GalleryArray.splice(_img, 1);
+    SetGalleryState( //Вносим изменения в состояние галереи
       {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/493550746.jpg",
-        "width": 640,
-        "height": 426
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964007.jpg",
-        "width": 1920,
-        "height": 1200
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/493550739.jpg",
-        "width": 640,
-        "height": 426
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964009.jpg",
-        "width": 436,
-        "height": 650
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/493550740.jpg",
-        "width": 600,
-        "height": 400
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964008.jpg",
-        "width": 509,
-        "height": 339
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964011.jpg",
-        "width": 900,
-        "height": 450
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/493550755.jpg",
-        "width": 480,
-        "height": 640
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964013.jpg",
-        "width": 472,
-        "height": 640
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/493550745.jpg",
-        "width": 640,
-        "height": 425
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964014.jpg",
-        "width": 240,
-        "height": 320
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964016.jpg",
-        "width": 540,
-        "height": 337
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964020.jpg",
-        "width": 1600,
-        "height": 1000
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964010.jpg",
-        "width": 1506,
-        "height": 575
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/493550754.jpg",
-        "width": 1280,
-        "height": 1276
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964021.jpg",
-        "width": 1280,
-        "height": 800
-      },
-      {
-        "url": "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/448964012.jpg",
-        "width": 787,
-        "height": 787
+        GalleryArray: GalleryState.GalleryArray
       }
-    ]        
-  });
+    );
+  };
 
+  const addPicture = (_file=null, _url=null) => {//Функция добавления картинки (_file - загруженной перетаскиванием или по _url)
+    let _state = GalleryState.GalleryArray; 
+    const image = new Image();
+      image.addEventListener('load', () => { //Определяем размеры картинки
+
+          _state.push({"url": image.src, "width": image.width, "height": image.height}); //Добавляем картинку
+          SetGalleryState( //Вносим изменения в состояние галереи
+            {
+              GalleryArray: _state
+            }
+          );
+      });
+      if (_url===null) {
+        image.src = URL.createObjectURL(_file);
+      }
+      else {
+        image.src = _url;
+      }
+      
+    
+  };
+
+  const dragNdropAdd = (_newPics) => { //Добавление картинок перетаскиванием на галерею
+    _newPics.map(file => {
+        addPicture(file);      
+    });  
+  };
+
+  const [GalleryState, SetGalleryState] = useState({ //Стейт галереи
+    GalleryArray: []        
+  });
 
 
   return (
     <div className="App">
       <div className="wrapper">
         <FileLoader loaderCallBack={urlCallback} />
-        <Gallery images={GalleryState} />   
+        <Dropzone accept={"image/*"} noClick={true} onDrop={acceptedFiles => dragNdropAdd(acceptedFiles)}>
+          {({getRootProps, getInputProps}) => (
+            <section>
+              <div {...getRootProps()}>
+                <input {...getInputProps()} />
+                <Gallery images={GalleryState} galleryCallBack={deleteImgCallback} /> 
+                <div className="example">
+                  Перетащите изображения на галерею для добавления
+                </div> 
+              </div>
+            </section>
+          )}
+        </Dropzone>
+         
       </div>
    
       

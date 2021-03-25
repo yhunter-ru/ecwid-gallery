@@ -15,6 +15,13 @@ body {
     
 }
 
+h2 {
+    text-align: center;
+    color: #333;
+    
+}
+
+//Загрузчик
 .LoaderWrapper {
     margin-bottom: 1rem; 
     position: relative;
@@ -54,38 +61,80 @@ body {
     padding-left: .7rem;
 }
 
+section {
+    .example {
+        transform: translateY(-.7rem);
+    }
+}
+
+//Галерея
 .gallery {
     display: flex;
     flex-wrap: wrap;
     list-style: none;
-    padding: 0;
-    &__item {
+    padding: .5rem;
+    min-height: 8rem;
+    transition: all .2s ease-in-out;
+    border-radius: 4px;
+    &:hover {
+        background-color: #f7f8fc;
+    }
+    &:empty {
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: 3rem 3rem;
+        background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='utf-8'%3F%3E%3C!-- Generator: Adobe Illustrator 24.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0) --%3E%3Csvg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' viewBox='0 0 512 512' style='enable-background:new 0 0 512 512;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0%7Bfill:%23cccccc;%7D%0A%3C/style%3E%3Cg%3E%3Cpath class='st0' d='M0,150.6h174.7V0H0V150.6z M30.1,30.1h114.4v90.4H30.1V30.1z'/%3E%3Cpath class='st0' d='M0,512h174.7V184.7H0V512z M30.1,214.8h114.4v130.5l-36.3,30.3l-45-15l-33.1,11V214.8z M30.1,403.4l33.1-11 l51.4,17.1l29.9-24.9v97.4H30.1V403.4z'/%3E%3Cpath class='st0' d='M208.8,512H512V337.3H208.8V512z M238.9,367.4h242.9v114.4H238.9V367.4z'/%3E%3Cpath class='st0' d='M208.8,0v303.2H512V0H208.8z M409.6,273.1h-98.4V242c0-23.8,19.4-43.2,43.2-43.2h12 c23.8,0,43.2,19.4,43.2,43.2L409.6,273.1z M335.3,143.6c0-13.8,11.3-25.1,25.1-25.1c13.8,0,25.1,11.3,25.1,25.1 s-11.3,25.1-25.1,25.1C346.6,168.7,335.3,157.4,335.3,143.6z M481.9,273.1h-42.2V242c0-27.1-14.8-50.7-36.6-63.4 c29.4-35.8,3.9-90.2-42.7-90.2c-46.6,0-72.1,54.4-42.7,90.2c-21.9,12.7-36.6,36.4-36.6,63.4v31.1h-42.2V30.1h242.9V273.1z'/%3E%3Cpath class='st0' d='M87.5,302c16.6,0,30.1-13.5,30.1-30.1s-13.5-30.1-30.1-30.1s-30.1,13.5-30.1,30.1S70.9,302,87.5,302z'/%3E%3C/g%3E%3C/svg%3E%0A");
+    }
+    
+
+    &__thumb { //Изображение       
+        width: 100%;
+        opacity: 1;
+        vertical-align: middle;
+        transition: all .2s ease-in-out;
+       
+    }
+    &__button { //Кнопка удаления
+        position: absolute !important;
+        top: .35rem;
+        right: .35rem; 
+        opacity: 0;        
+        span {            
+            svg {
+                fill: #333 !important;
+            }
+        }
+        .MuiIconButton-label {
+            background-color: #fff;
+            border-radius: 50%;
+        }
+        &:hover {
+            span svg {
+                fill: rgb(223, 18, 18) !important;
+            } 
+        }
+    }
+    &__item { //Плейсхолдер изображения в галерее
         padding: 0;
         margin: 0; 
-        max-width: 100%;
-        overflow: hidden;       
-        height: 25vw;
-        flex-grow: 1;
+        background-color: #efefef;
+        position: relative;
         &:last-child {
             flex-grow: 1;
         }
-
-    }
-    &__thumb {
-
-        max-height: 100%;
-        min-width: 100%;
-        object-fit: cover;
-        
-
-        vertical-align: bottom;
-    }
-}
-
-@include tablet-up {
-    .gallery {
-        &__item {
-            height: 8rem;
+        &:hover {            
+            .gallery__thumb {
+                opacity: .5 !important;
+            }
+            
+            .gallery__button {
+                opacity: 1;                
+            }
         }
     }
+    &::after {
+        content: '';
+        flex-grow: 30000;
+        min-width: calc(100vw / 4);
+    } 
 }

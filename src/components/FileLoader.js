@@ -7,18 +7,15 @@ import DirectionsIcon from '@material-ui/icons/CloudDownload';
 
 
 
-const FileLoader = (props) => {// В пропсах получем callback
+const FileLoader = (props) => {// Компонент поля загрузки. // loaderCallBack={urlCallback}
 
   function fileLoad() {// Исполняем при клике на кнопку загрузки
       let fileUrl = document.getElementById('fileUrl').value;
 
-      let testUrl = "https://www.yhunter.ru/temp/ecwid/gallery-images.json";
-      testUrl = "https://don16obqbay2c.cloudfront.net/frontend-test-task/gallery-images.json";
+      //testUrl = "https://don16obqbay2c.cloudfront.net/frontend-test-task/gallery-images.json";
       //testUrl = "https://don16obqbay2c.cloudfront.net/frontend-test-task/images/493550746.jpg";
         
-      console.log(fileUrl);
-      //console.log(testUrl);
-      props.loaderCallBack(testUrl); //Передаем url через callback
+      props.loaderCallBack(fileUrl); //Передаем url через callback
   }
 
   return (
@@ -35,7 +32,7 @@ const FileLoader = (props) => {// В пропсах получем callback
         </IconButton>
         </Paper>
         <div className="example">
-            Например, https://www.yhunter.ru/temp/ecwid/gallery-images.json
+            Например, https://don16obqbay2c.cloudfront.net/frontend-test-task/gallery-images.json
         </div>
     </div>
   );
