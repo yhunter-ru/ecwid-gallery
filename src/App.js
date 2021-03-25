@@ -15,7 +15,6 @@ function App() {
     fetch(_url,
       {
         headers : { 
-          'Content-Type': 'application/json',
           'Accept': 'application/json'
         }
       }

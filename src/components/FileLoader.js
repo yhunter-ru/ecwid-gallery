@@ -32,7 +32,7 @@ const FileLoader = (props) => {// Компонент поля загрузки. 
         </IconButton>
         </Paper>
         <div className="example">
-            Например, https://raw.githubusercontent.com/yhunter-ru/ecwid-gallery/master/src/gallery-images.json
+            Например, https://yhunter.ru/temp/ecwid/gallery-images.json
         </div>
     </div>
   );

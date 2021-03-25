@@ -8,7 +8,7 @@ const Gallery = (props) => { //Компонент галереи // images={Gall
         const aspect = _image.width/_image.height;
         return(
             <li key={ index.toString() } className="gallery__item" style={{width: _scale*aspect+'px', flexGrow: aspect}}>                      
-                <img src={ _image.url } className="gallery__thumb" onLoad={console.log('loaded')} />
+                <img src={ _image.url } className="gallery__thumb" />
                 <IconButton  className="gallery__button" aria-label="directions" onClick={() => {props.galleryCallBack(index);}}>
                     <CancelIcon /> 
                 </IconButton>
